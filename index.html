@@ -1,10 +1,280 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-<title>CloudFox DevOps Lab</title>
+<meta charset="UTF-8">
+<title>DNF & RPM Package Management | CloudFox CyberTech</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+:root{
+  --bg:#ffffff;
+  --panel:#ffffff;
+  --border:#e0e0e0;
+  --red:#c00;
+  --red-soft:#b30000;
+  --text:#222;
+  --muted:#666;
+}
+
+*{box-sizing:border-box}
+
+body{
+  margin:0;
+  font-family: "Segoe UI", Roboto, Arial, sans-serif;
+  background:var(--bg);
+  color:var(--text);
+}
+
+/* Top Navbar */
+.navbar{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:14px 28px;
+  background:#fff;
+  border-bottom:2px solid var(--red);
+}
+
+.nav-left{
+  display:flex;
+  align-items:center;
+  gap:16px;
+}
+
+.logo{
+  font-weight:700;
+  font-size:1.1rem;
+  color:var(--red);
+}
+
+.menu a{
+  color:#333;
+  text-decoration:none;
+  margin-right:16px;
+  font-size:0.95rem;
+}
+
+.menu a:hover{color:var(--red)}
+
+.nav-right{
+  color:#444;
+  font-size:0.9rem;
+}
+
+/* Page Header */
+.header{
+  padding:36px 28px 28px;
+  background:#fafafa;
+  border-bottom:1px solid var(--border);
+}
+
+.header h1{
+  margin:0 0 10px;
+  font-size:2rem;
+  color:#000;
+}
+
+.header p{
+  margin:0;
+  color:var(--muted);
+  max-width:900px;
+}
+
+/* Layout */
+.container{
+  max-width:1200px;
+  margin:auto;
+  padding:30px 28px 60px;
+}
+
+.section{
+  background:var(--panel);
+  border:1px solid var(--border);
+  border-radius:10px;
+  padding:24px;
+  margin-bottom:26px;
+}
+
+.section h2{
+  margin-top:0;
+  font-size:1.4rem;
+  color:#000;
+  border-left:4px solid var(--red);
+  padding-left:12px;
+}
+
+.section h3{
+  margin-top:22px;
+  color:var(--red-soft);
+}
+
+p,li{
+  line-height:1.7;
+}
+
+ul{padding-left:20px}
+
+pre{
+  background:#f7f7f7;
+  border:1px solid var(--border);
+  border-radius:8px;
+  padding:14px;
+  overflow-x:auto;
+}
+
+code{color:#b30000}
+
+.badge{
+  display:inline-block;
+  background:#fff0f0;
+  color:#b30000;
+  border:1px solid #ffcccc;
+  padding:3px 10px;
+  border-radius:20px;
+  font-size:0.8rem;
+}
+
+.table{
+  width:100%;
+  border-collapse:collapse;
+  margin-top:16px;
+}
+
+.table th,.table td{
+  border:1px solid var(--border);
+  padding:10px;
+  text-align:left;
+}
+
+.table th{
+  background:#f2f2f2;
+  color:#000;
+}
+
+.footer{
+  background:#fafafa;
+  border-top:1px solid var(--border);
+  padding:24px;
+  text-align:center;
+  color:#555;
+}
+
+@media(max-width:768px){
+  .menu{display:none}
+  .header h1{font-size:1.6rem}
+}
+</style>
 </head>
 <body>
-<h1>Welcome to DevOps Practical - Version 5</h1>
-<p>Deployed using Git and RHEL Server</p>
+
+<!-- Top Navigation -->
+<div class="navbar">
+  <div class="nav-left">
+    <div class="logo">CloudFox CyberTech</div>
+    <div class="menu">
+      <a href="#">Products</a>
+      <a href="#">Knowledge</a>
+      <a href="#">Security</a>
+      <a href="#">Support</a>
+    </div>
+  </div>
+  <div class="nav-right">Red Hat Linux Training</div>
+</div>
+
+<!-- Page Header -->
+<div class="header">
+  <h1>DNF & RPM Package Management</h1>
+  <p>Installing, updating, removing, verifying, and rolling back software packages on Red Hat Enterprise Linux using DNF and RPM.</p>
+</div>
+
+<div class="container">
+
+<div class="section">
+<h2>What is a Package Manager?</h2>
+<p>Package managers install, update, and remove software safely. DNF and RPM together provide a complete package management solution in RHEL.</p>
+<ul>
+<li><b>DNF</b> – High-level tool with dependency resolution</li>
+<li><b>RPM</b> – Low-level tool for queries and validation</li>
+</ul>
+</div>
+
+<div class="section">
+<h2>⬇ Installing a Package with DNF</h2>
+<pre><code>dnf -y install wireshark</code></pre>
+<p><span class="badge">-y</span> Automatically answers yes to prompts (use carefully in production).</p>
+
+<h3>Verify installation</h3>
+<pre><code>dnf list wireshark</code></pre>
+</div>
+
+<div class="section">
+<h2>Updating Packages</h2>
+<pre><code>dnf list updates</code></pre>
+<pre><code>dnf -y update git</code></pre>
+<pre><code>dnf update</code></pre>
+<p><b>Note:</b> <code>upgrade</code> may remove obsolete packages.</p>
+</div>
+
+<div class="section">
+<h2>❌ Removing Packages</h2>
+<pre><code>dnf -y remove httpd</code></pre>
+<pre><code>dnf list httpd</code></pre>
+</div>
+
+<div class="section">
+<h2>🕘 DNF History & Rollback</h2>
+<pre><code>dnf history</code></pre>
+<pre><code>dnf -y history rollback 5</code></pre>
+<p>Rolls the system back to the state before transaction ID 5.</p>
+</div>
+
+<div class="section">
+<h2>RPM Queries</h2>
+<pre><code>rpm -ql wireshark</code></pre>
+<pre><code>rpm -q --scripts httpd</code></pre>
+<pre><code>rpm -q --changelog wireshark</code></pre>
+</div>
+
+<div class="section">
+<h2>RPM Verification</h2>
+<pre><code>rm -f /usr/bin/wireshark</code></pre>
+<pre><code>rpm -V wireshark</code></pre>
+<pre><code>dnf -y reinstall wireshark</code></pre>
+</div>
+
+<div class="section">
+<h2>RPM Verify Attributes</h2>
+<table class="table">
+<tr><th>Symbol</th><th>Description</th></tr>
+<tr><td>S</td><td>File size differs</td></tr>
+<tr><td>M</td><td>Permissions or file type differs</td></tr>
+<tr><td>5</td><td>Digest differs</td></tr>
+<tr><td>D</td><td>Device number mismatch</td></tr>
+<tr><td>L</td><td>Symlink mismatch</td></tr>
+<tr><td>U</td><td>User ownership differs</td></tr>
+<tr><td>G</td><td>Group ownership differs</td></tr>
+<tr><td>T</td><td>Modification time differs</td></tr>
+<tr><td>P</td><td>Capabilities differ</td></tr>
+</table>
+</div>
+
+<div class="section">
+<h2> Key Takeaways</h2>
+<ul>
+<li>DNF manages packages and dependencies</li>
+<li>RPM validates and audits installed files</li>
+<li><code>dnf reinstall</code> restores missing files</li>
+<li><code>rpm -V</code> detects file changes</li>
+</ul>
+</div>
+
+</div>
+
+<div class="footer">
+© 2026 CloudFox CyberTech Educom · Red Hat & Linux Training- Raj Solanki
+</div>
+
 </body>
 </html>
+
 
